@@ -47,6 +47,8 @@ jobs:
       image_tag: ${{ steps.build.outputs.image_tag }}
     steps:
       - uses: actions/checkout@v4
+      - name: Debug variable
+        run: echo "El project id es -->${{ env.PROJECT_ID }}<--"
 
       - name: Build de la imagen (solo local, sin push aún)
         id: build
