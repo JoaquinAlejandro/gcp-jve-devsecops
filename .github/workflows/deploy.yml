@@ -94,7 +94,7 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const plan = fs.readFileSync('terraform/plan_output.txt', 'utf8');
+            const plan = fs.readFileSync('terraform/outputs.txt', 'utf8');
             const output = `#### Terraform Plan 📖\n\`\`\`\n${plan}\n\`\`\``;
             github.rest.issues.createComment({
               issue_number: context.issue.number,
