@@ -1,0 +1,35 @@
+name: Destruir infraestructura (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmacion:
+        description: 'Escribe "destruir" para confirmar'
+        required: true
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  destroy:
+    if: github.event.inputs.confirmacion == 'destruir'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Autenticar en GCP
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Destroy
+        working-directory: terraform
+        run: |
+          terraform init
+          terraform destroy -auto-approve -var="project_id=${{ secrets.GCP_PROJECT_ID }}"
