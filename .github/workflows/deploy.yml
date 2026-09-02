@@ -148,7 +148,8 @@ jobs:
           docker build -t "$IMAGE" .
           docker push "$IMAGE"
           echo "IMAGE_TAG=$IMAGE" >> $GITHUB_ENV
-
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3  
       - name: Terraform Apply
         working-directory: terraform
         run: |
