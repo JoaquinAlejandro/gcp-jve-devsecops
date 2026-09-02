@@ -15,20 +15,20 @@ resource "google_artifact_registry_repository" "repo" {
   repository_id = "api-repo-jve"
   format        = "DOCKER"
 
-  cleanup-policy_dry_run = false
+  cleanup_policy_dry_run = false
 
   cleanup_policies {
-    id = "conservar-ultimas-versiones"
+    id     = "conservar-ultimas-versiones"
     action = "KEEP"
-    most_recent_version {
+    most_recent_versions {
       keep_count = 5
     }
   }
 
   cleanup_policies {
-    id = "borrar-antiguas"
+    id     = "borrar-antiguas"
     action = "DELETE"
-    condition{
+    condition {
       older_than = "2592000s"
     }
   }
