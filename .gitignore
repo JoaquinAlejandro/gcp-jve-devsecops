@@ -1,6 +1,22 @@
-terraform/terraform.tfvars
-terraform/.terraform/
-terraform/*.tfstate
-terraform/*.tfstate.backup
+# Terraform
+*.tfstate
+*.tfstate.*
+*.tfvars
+!example.tfvars
+.terraform/
+crash.log
+override.tf
+override_*.tf
+
+# Credenciales
+*.json
+!package.json
+*.pem
+*.key
+.env
+
+# Python
 __pycache__/
 *.pyc
+venv/
+.venv/
