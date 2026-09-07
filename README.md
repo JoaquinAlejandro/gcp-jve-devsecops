@@ -44,6 +44,12 @@ validate  build+scan   terraform-plan   deploy
                               Artifact Registry → Cloud Run
 ```
 
+![Ejecución completa del pipeline en GitHub Actions](docs/pipeline-actions.png)
+
+<sub>Ejecución en push a `main`. `terraform-plan` aparece omitido porque ese job se ejecuta
+únicamente en Pull Requests. El despliegue quedó pausado en el entorno `production` hasta la
+aprobación manual, que queda registrada con usuario y fecha.</sub>
+
 **Recursos en GCP:**
 
 - **Cloud Run** — ejecuta el contenedor, escala a cero sin tráfico
@@ -141,6 +147,12 @@ Cuatro jobs encadenados:
 
 Un workflow separado (`destroy.yml`) permite destruir la infraestructura, pero solo de forma
 manual y escribiendo una palabra de confirmación. Nunca se dispara automáticamente.
+
+![Comentario automático del plan de Terraform en un Pull Request](docs/terraform-plan-pr.png)
+
+<sub>El job `terraform-plan` publica la salida del plan como comentario en el Pull Request. El
+cambio queda visible y revisable antes de llegar a `main`, incluyendo qué recursos se
+modificarían o destruirían.</sub>
 
 ---
 
